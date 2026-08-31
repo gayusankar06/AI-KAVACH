@@ -1,0 +1,51 @@
+# Node / Frontend
+frontend/node_modules/
+node_modules/
+frontend/dist/
+dist/
+.vite/
+*.local
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/__pycache__/
+backend/*.db
+backend/*.sqlite3
+*.db
+*.sqlite3
+venv/
+env/
+.venv/
+
+# Video & Media Files (Excluded as requested)
+*.mp4
+*.webm
+*.avi
+*.mov
+*.mkv
+demo_video_recordings/
+demo_video_recordings/*
+
+# Presentation & Pitch Documents (Excluded as requested)
+*.pptx
+*.pdf
+*.docx
+*.doc
+
+# Image artifacts & Temp slide renders
+extracted_pdf_slides/
+light_slides_render/
+final_slides_render/
+slide2_workflow.png
+slide3_architecture.png
+cyberlens block (2).png
+
+# Logs and environment
+*.log
+.env
+.DS_Store
+Thumbs.db
