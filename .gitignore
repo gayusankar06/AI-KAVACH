@@ -21,6 +21,7 @@ env/
 
 # Video & Media Files (Excluded as requested)
 *.mp4
+!Demo_video.mp4
 *.webm
 *.avi
 *.mov

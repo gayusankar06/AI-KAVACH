@@ -198,6 +198,24 @@ def init_db():
         """
     )
     conn.commit()
+
+    # Auto-seed default military demo officer account
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM users WHERE username = 'major_kavach'")
+    if not cur.fetchone():
+        from security import hash_password
+        p_hash = hash_password("KavachSecure@2026")
+        cur.execute(
+            "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
+            ("major_kavach", "major.kavach@iaf-cybercommand.mil", p_hash)
+        )
+        user_id = cur.lastrowid
+        # Seed default project
+        cur.execute(
+            "INSERT INTO projects (user_id, name, source_type, source_url, storage_path) VALUES (?, ?, ?, ?, ?)",
+            (user_id, "INDIAN-ARMY-TACTICAL-COMM-SUITE", "local", "", f"project_storage/{user_id}/INDIAN-ARMY-TACTICAL-COMM-SUITE")
+        )
+        conn.commit()
     conn.close()
 
 
