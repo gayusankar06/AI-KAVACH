@@ -36,10 +36,12 @@ build_perfect_pdf_deck.py
 demo_video_guide.md
 generate_final_submission_deck.py
 generate_pitch_deck.py
+generate_documentation_pdf.py
 record_light_demo_video.py
 record_real_demo_video.py
 render_slide_diagrams.py
 setup_army_demo_data.py
+PROJECT_DOCUMENTATION.md
 
 # Presentation & Pitch Documents (Excluded as requested)
 *.pptx
