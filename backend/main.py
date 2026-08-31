@@ -89,9 +89,9 @@ class LoginRequest(BaseModel):
     password: str
 
 
-@app.get("/")
-def root():
-    return {"message": "CyberLens Auth API is running"}
+@app.get("/api/health")
+def health_check():
+    return {"status": "ok", "message": "CyberLens Auth API is running"}
 
 
 @app.post("/api/signup")
@@ -665,6 +665,13 @@ if os.path.exists(frontend_dist):
     if os.path.exists(assets_dir):
         app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
+    @app.get("/")
+    async def serve_root():
+        index_file = os.path.join(frontend_dist, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+        return {"status": "ok", "message": "CyberLens Auth API is running"}
+
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
         # Don't intercept API routes that 404
@@ -673,4 +680,11 @@ if os.path.exists(frontend_dist):
         file_path = os.path.join(frontend_dist, full_path)
         if os.path.exists(file_path) and os.path.isfile(file_path):
             return FileResponse(file_path)
-        return FileResponse(os.path.join(frontend_dist, "index.html"))
+        index_file = os.path.join(frontend_dist, "index.html")
+        if os.path.exists(index_file):
+            return FileResponse(index_file)
+        return {"status": "ok", "message": "CyberLens Auth API is running"}
+else:
+    @app.get("/")
+    async def fallback_root():
+        return {"status": "ok", "message": "CyberLens Auth API is running"}
