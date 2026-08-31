@@ -30,6 +30,17 @@ env/
 demo_video_recordings/
 demo_video_recordings/*
 
+# Generator, Recorder & Demo Helper Scripts (Excluded from git)
+build_light_theme_pdf.py
+build_perfect_pdf_deck.py
+demo_video_guide.md
+generate_final_submission_deck.py
+generate_pitch_deck.py
+record_light_demo_video.py
+record_real_demo_video.py
+render_slide_diagrams.py
+setup_army_demo_data.py
+
 # Presentation & Pitch Documents (Excluded as requested)
 *.pptx
 *.pdf
