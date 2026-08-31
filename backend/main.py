@@ -649,3 +649,28 @@ def get_single_certificate(certificate_id: str):
     if cert is None:
         raise HTTPException(status_code=404, detail="Certificate not found")
     return {"certificate": dict(cert)}
+
+
+# ==============================================================================
+# UNIFIED SINGLE-PLATFORM SPA SERVING (Frontend + Backend on 1 Domain)
+# ==============================================================================
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+frontend_dist = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
+assets_dir = os.path.join(frontend_dist, "assets")
+
+if os.path.exists(frontend_dist):
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Don't intercept API routes that 404
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="API endpoint not found")
+        file_path = os.path.join(frontend_dist, full_path)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
